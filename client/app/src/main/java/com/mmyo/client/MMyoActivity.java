@@ -52,37 +52,41 @@ public class MMyoActivity extends Activity {
             txtPose.setTextColor(Color.GRAY);
         }
 
-        /*@Override
+        @Override
         public void onOrientationData(Myo myo, long timestamp, Quaternion rotation) {
             if (spell == SpellGesture.TRIGGERED) {
                 startQuat = rotation;
                 spell = SpellGesture.TRACKING;
             } else if (spell == SpellGesture.FINISHED) {
                 endQuat = rotation;
-                spell = SpellGesture.WAITING;
+                spell = SpellGesture.DEAD;
             }
-        }
 
-        private void calculateSpell(Pose pose, Quaternion startQuat, Quaternion endQuat) {
-            float totalRoll = (float) (Math.toDegrees(Quaternion.roll(endQuat))
-                    - Math.toDegrees(Quaternion.roll(startQuat)));
-            float totalPitch = (float) (Math.toDegrees(Quaternion.pitch(endQuat))
-                    - Math.toDegrees(Quaternion.pitch(startQuat)));
-            float totalYaw = (float) (Math.toDegrees(Quaternion.yaw(endQuat))
-                    - Math.toDegrees(Quaternion.yaw(startQuat)));
-
-            int rollRight = (Math.abs(totalRoll) < )
-        }*/
-
-        @Override
-        public void onOrientationData(Myo myo, long timestamp, Quaternion rotation) {
             float roll = (float) Math.toDegrees(Quaternion.roll(rotation));
             float pitch = (float) Math.toDegrees(Quaternion.pitch(rotation));
             float yaw = (float) Math.toDegrees(Quaternion.yaw(rotation));
 
             txtRoll.setText(Float.toString(roll));
             txtPitch.setText(Float.toString(pitch));
-            txtPitch.setText(Float.toString(yaw));
+            txtYaw.setText(Float.toString(yaw));
+        }
+
+        private void calculateSpell(Pose pose, Quaternion startQuat, Quaternion endQuat) {
+            float totalRoll = (float) (Math.toDegrees(Quaternion.roll(endQuat))
+                    - Math.toDegrees(Quaternion.roll(startQuat)));
+            if (Math.abs(totalRoll) > 180) {
+                totalRoll = (totalRoll > 180 ? totalRoll - 180 : totalRoll + 180);
+            }
+            float totalPitch = (float) (Math.toDegrees(Quaternion.pitch(endQuat))
+                    - Math.toDegrees(Quaternion.pitch(startQuat)));
+            if (Math.abs(totalPitch) > 180) {
+                totalPitch = (totalPitch > 180 ? totalPitch - 180 : totalPitch + 180);
+            }
+            float totalYaw = (float) (Math.toDegrees(Quaternion.yaw(endQuat))
+                    - Math.toDegrees(Quaternion.yaw(startQuat)));
+            if (Math.abs(totalYaw) > 180) {
+                totalYaw = (totalYaw > 180 ? totalYaw - 180 : totalYaw + 180);
+            }
         }
 
         @Override
@@ -96,7 +100,8 @@ public class MMyoActivity extends Activity {
                 spell = SpellGesture.TRIGGERED;
             } else {
                 myo.unlock(Myo.UnlockType.TIMED);
-                spell = SpellGesture.FINISHED;
+                if (spell == SpellGesture.TRACKING)
+                    spell = SpellGesture.FINISHED;
             }
         }
     };
