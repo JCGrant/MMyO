@@ -28,6 +28,7 @@ dependencies {
             url 'libs/myo-android-sdk-0.10.0/myorepository'
         }
     }
-
     compile('com.thalmic:myosdk:0.10.+@aar')
+
+    compile('com.squareup.retrofit:retrofit:1.9.0')
 }
