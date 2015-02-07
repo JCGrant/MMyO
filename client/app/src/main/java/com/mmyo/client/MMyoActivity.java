@@ -15,9 +15,6 @@ import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.scanner.ScanActivity;
 
-/**
- * Created by james on 07/02/15.
- */
 public class MMyoActivity extends Activity {
 
     private TextView mLockedText;
