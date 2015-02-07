@@ -1,32 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.javacodegeeks.android.loginapp"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
-</manifest>
-=======
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mmyo.client" >
     // Required for communicating with the Myo device
@@ -53,4 +25,3 @@
     </application>
 
 </manifest>
->>>>>>> be8867d80d24f227a626bf7d4225f2a678bed03f
