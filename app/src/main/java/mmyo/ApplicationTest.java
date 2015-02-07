@@ -1,4 +1,4 @@
-package com.jcgrant.ichack_mmyo;
+package mmyo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
