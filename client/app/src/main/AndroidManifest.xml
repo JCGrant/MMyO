@@ -17,6 +17,11 @@
             android:label="@string/title_activity_main"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".MMyoActivity"
+            android:label="@string/title_activity_mmyo"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
