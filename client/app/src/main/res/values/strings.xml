@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<resources>
+
+    <string name="app_name">LoginApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
+=======
 <resources>
 
     <string name="app_name">Client</string>
@@ -12,3 +21,4 @@
     <string name="scan">scan</string>
 
 </resources>
+>>>>>>> be8867d80d24f227a626bf7d4225f2a678bed03f
