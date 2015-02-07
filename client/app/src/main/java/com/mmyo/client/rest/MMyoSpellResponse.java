@@ -3,10 +3,12 @@ package com.mmyo.client.rest;
 import com.mmyo.client.Direction;
 import com.thalmic.myo.Pose;
 
-/**
- * Created by james on 07/02/15.
- */
-public class MMyoSpellResponse {
+public class MMyoSpellResponse implements Response {
+    int id;
     Pose pose;
     Direction direction;
+
+    public void displayInformation() {
+        System.out.println(id + " " + pose + " " + direction);
+    }
 }

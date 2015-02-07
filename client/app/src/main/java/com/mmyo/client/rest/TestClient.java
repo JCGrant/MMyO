@@ -27,7 +27,10 @@ public class TestClient {
 
         MMyoService service = restAdapter.create(MMyoService.class);
 
-        MMyoSpellResponse r = service.castSpell(Pose.FIST, Direction.LEFT);
-        System.out.println(r.pose + " " + r.direction);
+        Response r = service.castSpell(0, Pose.FIST, Direction.LEFT);
+        r.displayInformation();
+
+        r = service.sendLocation(0, 34.54, 23.53);
+        r.displayInformation();
     }
 }

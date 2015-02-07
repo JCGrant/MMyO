@@ -7,6 +7,15 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 
 public interface MMyoService {
-    @GET("/{pose}/{direction}")
-    MMyoSpellResponse castSpell(@Path("pose") Pose pose, @Path("direction") Direction direction);
+    @GET("/{id}/{pose}/{direction}")
+    MMyoSpellResponse castSpell(
+            @Path("id") int id,
+            @Path("pose") Pose pose,
+            @Path("direction") Direction direction);
+
+    @GET("/{id}/{longitude}/{latitude}")
+    MMyoLocationResponse sendLocation(
+            @Path("id") int id,
+            @Path("longitude") Double longitude,
+            @Path("latitude") Double latitude);
 }
