@@ -1,6 +1,8 @@
 package com.mmyo.client.rest;
 
 import com.mmyo.client.Direction;
+import com.mmyo.client.rest.response.MMyoLocationResponse;
+import com.mmyo.client.rest.response.MMyoSpellResponse;
 import com.thalmic.myo.Pose;
 
 import retrofit.http.GET;

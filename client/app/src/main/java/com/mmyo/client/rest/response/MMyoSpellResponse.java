@@ -1,4 +1,4 @@
-package com.mmyo.client.rest;
+package com.mmyo.client.rest.response;
 
 import com.mmyo.client.Direction;
 import com.thalmic.myo.Pose;

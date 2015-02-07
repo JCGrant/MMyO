@@ -1,4 +1,4 @@
-package com.mmyo.client.rest;
+package com.mmyo.client.rest.response;
 
 public class MMyoLocationResponse implements Response {
     int id;
