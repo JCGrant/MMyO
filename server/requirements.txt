@@ -1,0 +1,17 @@
+Flask==0.10.1
+Flask-SQLAlchemy==2.0
+Jinja2==2.7.3
+MarkupSafe==0.23
+SQLAlchemy==0.9.8
+Terminator==0.97
+Werkzeug==0.9.6
+argparse==1.2.1
+ipython==2.3.0
+itsdangerous==0.24
+pbr==0.10.0
+requests==2.4.3
+six==1.8.0
+stevedore==1.1.0
+virtualenv==1.11.6
+wsgiref==0.1.2
+zenmap==6.47

@@ -17,9 +17,6 @@ import com.thalmic.myo.Pose;
 import com.thalmic.myo.Quaternion;
 import com.thalmic.myo.scanner.ScanActivity;
 
-/**
- * Created by james on 07/02/15.
- */
 public class MMyoActivity extends Activity {
 
     private TextView txtLocked;
