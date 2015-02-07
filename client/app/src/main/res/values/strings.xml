@@ -10,5 +10,9 @@
     <string name="topright">Love it!</string>
     <string name="locked">Locked!</string>
     <string name="scan">scan</string>
+    <string name="pose"></string>
+    <string name="roll">roll</string>
+    <string name="pitch">pitch</string>
+    <string name="yaw">yaw</string>
 
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="fireball">Fireball</string>
+    <string name="cancel">Cancel</string>
+    <string name="push">Force Away</string>
+</resources>
