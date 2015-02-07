@@ -1,15 +1,27 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mmyo.client">
-
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme">
-
-    </application>
-
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mmyo.client" >
     // Required for communicating with the Myo device
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     // Required for sending usage data to Thalmic Labs
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".MMyoActivity"
+            android:label="@string/title_activity_mmyo"
+            android:exported="true">
+        </activity>
+    </application>
 
 </manifest>
