@@ -110,8 +110,22 @@ public class MMyoActivity extends Activity {
 
             txtDirection.setText(d.toString());
             if (d != Direction.NOTHING) {
-                service.castSpell(0, pose, d);
+                castSpell(0, pose, d);
             }
+        }
+
+        void castSpell(int i, final Pose p, final Direction d) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        service.castSpell(0, p, d);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
         }
 
         @Override
@@ -119,7 +133,7 @@ public class MMyoActivity extends Activity {
             txtPose.setTextColor(Color.BLACK);
             txtPose.setText(pose.name());
 
-            if ((!poseSet || pose == spellPose) && pose != Pose.UNKNOWN && pose != Pose.REST) {
+            if ((poseSet ? pose == spellPose : true) && pose != Pose.UNKNOWN && pose != Pose.REST) {
                 poseSet = true;
                 spellPose = pose;
                 myo.unlock(Myo.UnlockType.HOLD);
@@ -157,7 +171,17 @@ public class MMyoActivity extends Activity {
             return;
         }
 
-        
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    service.hello();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
 
         btnScan.setOnClickListener(
                 new Button.OnClickListener() {
