@@ -1,6 +1,12 @@
 from app import app
 import json
 
+@app.route("/")
+def hello():
+    response = "Hello!"
+    print response
+    return response
+
 @app.route("/<int:user_id>/<pose>/<direction>")
 def cast_spell(user_id, pose, direction):
     print user_id, pose, direction
