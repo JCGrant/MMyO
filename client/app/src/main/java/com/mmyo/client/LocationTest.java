@@ -32,7 +32,7 @@ public class LocationTest extends Activity {
         };
 
         // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 10, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
     }
 
