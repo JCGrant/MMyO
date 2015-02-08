@@ -9,6 +9,10 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 
 public interface MMyoService {
+
+    @GET("/")
+    String hello();
+
     @GET("/{id}/{pose}/{direction}")
     MMyoSpellResponse castSpell(
             @Path("id") int id,
