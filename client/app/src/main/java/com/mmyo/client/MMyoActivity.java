@@ -210,17 +210,17 @@ public class MMyoActivity extends Activity {
             return;
         }
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    service.hello();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    service.hello();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        thread.start();
 
         btnScan.setOnClickListener(
                 new Button.OnClickListener() {
