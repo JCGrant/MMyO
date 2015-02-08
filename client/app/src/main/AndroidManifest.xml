@@ -7,18 +7,20 @@
     // Required for sending usage data to Thalmic Labs
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
+            android:name=".MMyoActivity"
+            android:label="@string/title_activity_mmyo"
             android:exported="true">
         </activity>
         <activity
-            android:name=".MMyoActivity"
+            android:name=".LocationTest"
             android:label="@string/title_activity_mmyo"
             android:exported="true">
         </activity>
