@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.mmyo.client.rest.MMyoService;
 import com.mmyo.client.rest.MMyoServiceConstructor;
+import com.mmyo.client.rest.response.MMyoSpellResponse;
 import com.mmyo.client.rest.response.Response;
 import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.DeviceListener;
@@ -21,14 +22,26 @@ import com.thalmic.myo.Quaternion;
 import com.thalmic.myo.XDirection;
 import com.thalmic.myo.scanner.ScanActivity;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class MMyoActivity extends Activity {
 
     private TextView txtLocked;
     private TextView txtPose;
-    private TextView txtRoll;
-    private TextView txtPitch;
-    private TextView txtYaw;
+//    private TextView txtRoll;
+//    private TextView txtPitch;
+//    private TextView txtYaw;
     private TextView txtDirection;
+
+    private TextView txtPSpell;
+    private TextView txtDmgTaken;
+    private TextView txtPHealth;
+    private TextView txtESpell;
+    private TextView txtDmgDealt;
+    private TextView txtEHealth;
     private boolean poseSet;
     private Pose spellPose;
     private Button btnScan;
@@ -72,13 +85,13 @@ public class MMyoActivity extends Activity {
                 calculateSpell(myo, spellPose, startQuat, endQuat);
             }
 
-            float roll = (float) Math.toDegrees(Quaternion.roll(rotation));
+            /*float roll = (float) Math.toDegrees(Quaternion.roll(rotation));
             float pitch = (float) Math.toDegrees(Quaternion.pitch(rotation));
             float yaw = (float) Math.toDegrees(Quaternion.yaw(rotation));
 
             txtRoll.setText(Float.toString(roll));
             txtPitch.setText(Float.toString(pitch));
-            txtYaw.setText(Float.toString(yaw));
+            txtYaw.setText(Float.toString(yaw));*/
         }
 
         private void calculateSpell(Myo myo, Pose pose, Quaternion startQuat, Quaternion endQuat) {
@@ -110,22 +123,41 @@ public class MMyoActivity extends Activity {
 
             txtDirection.setText(d.toString());
             if (d != Direction.NOTHING) {
-                castSpell(0, pose, d);
+//                MMyoSpellResponse r = castSpell(0, pose, d);
+                MMyoSpellResponse r = new MMyoSpellResponse("Fire", "Ice", 3, 5, 7, 5);
+                guiUpdate(r);
             }
         }
 
-        void castSpell(int i, final Pose p, final Direction d) {
-            Thread thread = new Thread(new Runnable() {
+        MMyoSpellResponse castSpell(int i, final Pose p, final Direction d) {
+            ExecutorService executor = Executors.newFixedThreadPool(1);
+            Future<MMyoSpellResponse> f = executor.submit(new Callable<MMyoSpellResponse>() {
                 @Override
-                public void run() {
-                    try {
-                        service.castSpell(0, p, d);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                public MMyoSpellResponse call() throws Exception {
+                    return (MMyoSpellResponse) service.castSpell(0, p, d);
                 }
             });
-            thread.start();
+            Response r = new Response() {
+                @Override
+                public void displayInformation() {
+                    System.out.println("Error!");
+                }
+            };
+            try {
+                r = f.get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return (MMyoSpellResponse) r;
+        }
+
+        private void guiUpdate(MMyoSpellResponse r) {
+            txtPSpell.setText("Fire");
+            txtDmgTaken.setText(String.valueOf(r.getDmgTaken()));
+            txtPHealth.setText(String.valueOf(r.getHealth()));
+            txtESpell.setText("Ice");
+            txtDmgDealt.setText(String.valueOf(r.getDmgDealt()));
+            txtEHealth.setText(String.valueOf(r.getEnemyHealth()));
         }
 
         @Override
@@ -156,10 +188,17 @@ public class MMyoActivity extends Activity {
 
         txtLocked = (TextView) findViewById(R.id.txtLocked);
         txtPose = (TextView) findViewById(R.id.txtPose);
-        txtRoll = (TextView) findViewById(R.id.txtRoll);
-        txtPitch = (TextView) findViewById(R.id.txtPitch);
-        txtYaw = (TextView) findViewById(R.id.txtYaw);
+//        txtRoll = (TextView) findViewById(R.id.txtRoll);
+//        txtPitch = (TextView) findViewById(R.id.txtPitch);
+//        txtYaw = (TextView) findViewById(R.id.txtYaw);
         txtDirection = (TextView) findViewById(R.id.txtDirection);
+
+        txtPSpell = (TextView) findViewById(R.id.txtPSpell);
+        txtDmgTaken = (TextView) findViewById(R.id.txtDmgTaken);
+        txtPHealth = (TextView) findViewById(R.id.txtPHealth);
+        txtESpell = (TextView) findViewById(R.id.txtESpell);
+        txtDmgDealt = (TextView) findViewById(R.id.txtDmgDealt);
+        txtEHealth = (TextView) findViewById(R.id.txtEHealth);
         btnScan = (Button) findViewById(R.id.btnScan);
         spell = SpellGesture.WAITING;
         poseSet = false;

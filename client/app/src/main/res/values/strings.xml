@@ -16,4 +16,11 @@
     <string name="yaw">yaw</string>
     <string name="direction"></string>
 
+    <string name="pSpell"></string>
+    <string name="eSpell"></string>
+    <string name="dmgTaken">0</string>
+    <string name="dmgDealt">0</string>
+    <string name="pHealth">10</string>
+    <string name="eHealth">10</string>
+
 </resources>

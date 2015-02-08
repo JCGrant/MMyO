@@ -19,7 +19,7 @@ public class MMyoServiceConstructor {
                 .create();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint("http://192.168.5.172:5000")
+                .setEndpoint("http://127.0.0.1:5000")
                 .setConverter(new GsonConverter(gson))
                 .build();
 

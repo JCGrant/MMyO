@@ -31,7 +31,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/locked"
         android:id="@+id/txtLocked"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -49,64 +49,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pose"
         android:id="@+id/txtPose"
-        android:layout_below="@+id/txtLocked"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/pitch"
-        android:id="@+id/lblPitch"
-        android:layout_below="@+id/txtPose"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/roll"
-        android:id="@+id/lblRoll"
-        android:layout_marginEnd="18dp"
-        android:layout_alignTop="@+id/lblPitch"
-        android:layout_toStartOf="@+id/title" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/yaw"
-        android:id="@+id/lblYaw"
-        android:layout_alignTop="@+id/lblPitch"
-        android:layout_toEndOf="@+id/title"
-        android:layout_marginStart="21dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/txtRoll"
-        android:layout_below="@+id/lblRoll"
-        android:layout_alignEnd="@+id/lblRoll" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/txtPitch"
-        android:layout_below="@+id/lblPitch"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text=" "
-        android:id="@+id/txtYaw"
-        android:layout_below="@+id/lblYaw"
-        android:layout_alignStart="@+id/lblYaw" />
+        android:layout_above="@+id/txtLocked"
+        android:layout_toStartOf="@+id/txtLocked" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,8 +58,63 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/direction"
         android:id="@+id/txtDirection"
+        android:layout_above="@+id/txtLocked"
+        android:layout_toEndOf="@+id/txtLocked" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/pSpell"
+        android:id="@+id/txtPSpell"
         android:layout_below="@+id/btnScan"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="87dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/eSpell"
+        android:id="@+id/txtESpell"
+        android:layout_alignTop="@+id/txtPSpell"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/dmgTaken"
+        android:id="@+id/txtDmgTaken"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/dmgDealt"
+        android:id="@+id/txtDmgDealt"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/txtESpell" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/pHealth"
+        android:id="@+id/txtPHealth"
+        android:layout_below="@+id/txtDmgTaken"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/eHealth"
+        android:id="@+id/txtEHealth"
+        android:layout_alignTop="@+id/txtPHealth"
+        android:layout_alignEnd="@+id/txtESpell" />
 
 </RelativeLayout>
