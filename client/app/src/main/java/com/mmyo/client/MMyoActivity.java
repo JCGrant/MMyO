@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mmyo.client.rest.MMyoService;
+import com.mmyo.client.rest.MMyoServiceConstructor;
+import com.mmyo.client.rest.response.Response;
 import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.DeviceListener;
 import com.thalmic.myo.Hub;
@@ -32,6 +35,7 @@ public class MMyoActivity extends Activity {
     private SpellGesture spell;
     private Quaternion startQuat;
     private Quaternion endQuat;
+    private MMyoService service;
 
     private DeviceListener mListener = new AbstractDeviceListener() {
 
@@ -105,6 +109,9 @@ public class MMyoActivity extends Activity {
             }
 
             txtDirection.setText(d.toString());
+            if (d != Direction.NOTHING) {
+                service.castSpell(0, pose, d);
+            }
         }
 
         @Override
@@ -131,6 +138,8 @@ public class MMyoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        service = MMyoServiceConstructor.construct();
+
         txtLocked = (TextView) findViewById(R.id.txtLocked);
         txtPose = (TextView) findViewById(R.id.txtPose);
         txtRoll = (TextView) findViewById(R.id.txtRoll);
@@ -147,6 +156,8 @@ public class MMyoActivity extends Activity {
             finish();
             return;
         }
+
+        
 
         btnScan.setOnClickListener(
                 new Button.OnClickListener() {
