@@ -14,5 +14,6 @@
     <string name="roll">roll</string>
     <string name="pitch">pitch</string>
     <string name="yaw">yaw</string>
+    <string name="direction"></string>
 
 </resources>

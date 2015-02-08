@@ -15,6 +15,7 @@ import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.Pose;
 import com.thalmic.myo.Quaternion;
+import com.thalmic.myo.XDirection;
 import com.thalmic.myo.scanner.ScanActivity;
 
 public class MMyoActivity extends Activity {
@@ -24,6 +25,9 @@ public class MMyoActivity extends Activity {
     private TextView txtRoll;
     private TextView txtPitch;
     private TextView txtYaw;
+    private TextView txtDirection;
+    private boolean poseSet;
+    private Pose spellPose;
     private Button btnScan;
     private SpellGesture spell;
     private Quaternion startQuat;
@@ -50,6 +54,7 @@ public class MMyoActivity extends Activity {
         public void onLock(Myo myo, long timestamp) {
             txtLocked.setText("Locked!");
             txtPose.setTextColor(Color.GRAY);
+            poseSet = false;
         }
 
         @Override
@@ -60,6 +65,7 @@ public class MMyoActivity extends Activity {
             } else if (spell == SpellGesture.FINISHED) {
                 endQuat = rotation;
                 spell = SpellGesture.DEAD;
+                calculateSpell(myo, spellPose, startQuat, endQuat);
             }
 
             float roll = (float) Math.toDegrees(Quaternion.roll(rotation));
@@ -71,22 +77,34 @@ public class MMyoActivity extends Activity {
             txtYaw.setText(Float.toString(yaw));
         }
 
-        private void calculateSpell(Pose pose, Quaternion startQuat, Quaternion endQuat) {
-            float totalRoll = (float) (Math.toDegrees(Quaternion.roll(endQuat))
+        private void calculateSpell(Myo myo, Pose pose, Quaternion startQuat, Quaternion endQuat) {
+            Direction d = Direction.NOTHING;
+            boolean invert = myo.getXDirection() == XDirection.TOWARD_ELBOW;
+            float totalRoll = (invert ? -1 : 1) * (float) (Math.toDegrees(Quaternion.roll(endQuat))
                     - Math.toDegrees(Quaternion.roll(startQuat)));
             if (Math.abs(totalRoll) > 180) {
-                totalRoll = (totalRoll > 180 ? totalRoll - 180 : totalRoll + 180);
+                totalRoll = (totalRoll > 180 ? totalRoll - 360 : totalRoll + 360);
             }
-            float totalPitch = (float) (Math.toDegrees(Quaternion.pitch(endQuat))
+            float totalPitch = (invert ? -1 : 1) * (float) (Math.toDegrees(Quaternion.pitch(endQuat))
                     - Math.toDegrees(Quaternion.pitch(startQuat)));
             if (Math.abs(totalPitch) > 180) {
-                totalPitch = (totalPitch > 180 ? totalPitch - 180 : totalPitch + 180);
+                totalPitch = (totalPitch > 180 ? totalPitch - 360 : totalPitch + 360);
             }
             float totalYaw = (float) (Math.toDegrees(Quaternion.yaw(endQuat))
                     - Math.toDegrees(Quaternion.yaw(startQuat)));
             if (Math.abs(totalYaw) > 180) {
-                totalYaw = (totalYaw > 180 ? totalYaw - 180 : totalYaw + 180);
+                totalYaw = (totalYaw > 180 ? totalYaw - 360 : totalYaw + 360);
             }
+
+            if (Math.abs(totalPitch) > 20) {
+                d = totalPitch > 0 ? Direction.DOWN : Direction.UP;
+            } else if (Math.abs(totalYaw) > 30) {
+                d = totalYaw > 0 ? Direction.LEFT : Direction.RIGHT;
+            } else if (Math.abs(totalRoll) > 10) {
+                d = totalRoll > 0 ? Direction.CLOCKWISE : Direction.ANTICLOCKWISE;
+            }
+
+            txtDirection.setText(d.toString());
         }
 
         @Override
@@ -94,7 +112,9 @@ public class MMyoActivity extends Activity {
             txtPose.setTextColor(Color.BLACK);
             txtPose.setText(pose.name());
 
-            if (pose != Pose.UNKNOWN && pose != Pose.REST) {
+            if ((!poseSet || pose == spellPose) && pose != Pose.UNKNOWN && pose != Pose.REST) {
+                poseSet = true;
+                spellPose = pose;
                 myo.unlock(Myo.UnlockType.HOLD);
                 myo.notifyUserAction();
                 spell = SpellGesture.TRIGGERED;
@@ -116,8 +136,10 @@ public class MMyoActivity extends Activity {
         txtRoll = (TextView) findViewById(R.id.txtRoll);
         txtPitch = (TextView) findViewById(R.id.txtPitch);
         txtYaw = (TextView) findViewById(R.id.txtYaw);
+        txtDirection = (TextView) findViewById(R.id.txtDirection);
         btnScan = (Button) findViewById(R.id.btnScan);
         spell = SpellGesture.WAITING;
+        poseSet = false;
 
         Hub hub = Hub.getInstance();
         if (!hub.init(this, getPackageName())) {
